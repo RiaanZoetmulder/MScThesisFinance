@@ -6,38 +6,66 @@ main loop
 from options import load_arguments
 from utilities import say
 from parser import parse_year
+from linker import link_year
+import time
 
 def main():
     
     ########### Parse Mode ###########
-    
     if args.mode == 'parse':
-        
+        # command : python main.py --mode=parse --years 1994
         print 'Starting Parsing'
         
-        # if list empty or not
+        # if list empty set all years
         if not args.years:
-            raise NotImplementedError
+            args.years = [1994 + i for i in range(23)]
             
-        else:
-            print '\nParsing the years:'
-            for value in args.years:
-                print '\t {}'.format(value)
-                
-            for year in args.years:
-                say('\ncurrently parsing year: {}'.format(year))
-                parse_year(year)
+        print '\nParsing the years:\n '
+        for value in args.years:
+            print '\t {}\n '.format(value)
             
-            say('\n')
+        start = time.time()
+
+
                 
-                
-                
-                
-                
+        for year in args.years:
+            say('\ncurrently parsing year: {}\n'.format(year))
+            parse_year(year)
+            
+        end = time.time()
+        print 'Time elapsed: {}'.format(end -start)
+        say('\nFinished! \n')
+
+    ########### Link Mode ###########
+    elif args.mode == 'link':
+        
+        # command : python main.py --mode=link --years 1994
+        print 'Starting Linking'
+        
+        if not args.years:
+            args.years = [1994 + i for i in range(23)]
+            
+        print '\nLinking CIK to CUSIP codes to the years:'
+        for value in args.years:
+            print '\t {}\n'.format(value)
+            
+        start = time.time()
+        
+        for year in args.years:
+            say('\ncurrently parsing year: {}\n'.format(year))
+            link_year(year)
+            
+        end = time.time()
+        print 'Time elapsed: {}'.format(end -start)
+        
+        say('\nFinished! \n')
+        
+
+        
+        
     ########### Label Mode ###########
     elif args.mode == 'label':
         raise NotImplementedError
-        
         
         
         

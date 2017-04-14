@@ -14,7 +14,7 @@ def load_arguments():
     argparser.add_argument("--mode",
             type = str,
             default = None,
-            help = "Indicate which mode: parse, label, train or extract",
+            help = "Indicate which mode: parse, link, label, train or extract",
             required = True
         )
     argparser.add_argument("--years",
