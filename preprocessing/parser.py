@@ -22,10 +22,7 @@ import unicodedata
 def parse_year(year, statement  = '10-K' ):
     parser = StatementsParser(year, statement  = '10-K' )
     parser.get_list_statements()
-    parser.start_parsing(maxnumber = 1000, clean = True, add_cleaning = True)
-    
-
-    
+    parser.start_parsing(maxnumber = 10, clean = True, add_cleaning = True)
     
 
 class StatementsParser(object):

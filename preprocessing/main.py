@@ -8,12 +8,13 @@ from utilities import say
 from parser import parse_year
 from linker import link_year
 import time
+from helpers import shares_outstanding, book_value
 
 def main():
     
     ########### Parse Mode ###########
     if args.mode == 'parse':
-        # command : python main.py --mode=parse --years 1994
+        # command example : python main.py --mode=parse --years 1994
         print 'Starting Parsing'
         
         # if list empty set all years
@@ -36,10 +37,12 @@ def main():
         print 'Time elapsed: {}'.format(end -start)
         say('\nFinished! \n')
 
+
+
     ########### Link Mode ###########
     elif args.mode == 'link':
         
-        # command : python main.py --mode=link --years 1994
+        # command example : python main.py --mode=link --years 1994
         print 'Starting Linking'
         
         if not args.years:
@@ -49,11 +52,16 @@ def main():
         for value in args.years:
             print '\t {}\n'.format(value)
             
+        print 'Loading table that holds shares outstanding monthly'
+        
+        shares_dict = shares_outstanding()
+        bv= book_value()
+            
         start = time.time()
         
         for year in args.years:
             say('\ncurrently parsing year: {}\n'.format(year))
-            link_year(year)
+            link_year(year, shares_dict, bv)
             
         end = time.time()
         print 'Time elapsed: {}'.format(end -start)
